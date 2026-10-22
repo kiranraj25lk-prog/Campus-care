@@ -1,0 +1,29 @@
+# Node dependencies
+node_modules/
+.npm/
+
+# Build artifacts
+dist/
+dist-ssr/
+*.local
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database temporary files
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Uploads
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Vercel
+.vercel
