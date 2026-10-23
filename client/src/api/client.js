@@ -1,6 +1,4 @@
-const BASE_URL = typeof window !== 'undefined' && (window.location.port === '3000' || window.location.port === '5173')
-  ? 'http://127.0.0.1:5001/api'
-  : '/api';
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('campuscare_token');
