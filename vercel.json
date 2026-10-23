@@ -8,8 +8,7 @@
     "server": {
       "root": "server",
       "framework": "express",
-      "entrypoint": "src/server.js",
-      "runtime": "nodejs20.x"
+      "entrypoint": "src/server.js"
     }
   },
   "rewrites": [

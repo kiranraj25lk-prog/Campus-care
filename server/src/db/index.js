@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -39,7 +39,42 @@ if (IS_VERCEL && !fs.existsSync(DB_PATH)) {
   }
 }
 
-export const db = new Database(DB_PATH);
+const rawDb = new DatabaseSync(DB_PATH);
+
+const normalize = (arg) => (arg === undefined ? null : arg);
+
+export const db = {
+  raw: rawDb,
+  exec(sql) {
+    return rawDb.exec(sql);
+  },
+  pragma(sql) {
+    return rawDb.exec(`PRAGMA ${sql}`);
+  },
+  prepare(sql) {
+    const stmt = rawDb.prepare(sql);
+    return {
+      run(...args) {
+        const res = stmt.run(...args.map(normalize));
+        return {
+          ...res,
+          lastInsertRowid: Number(res.lastInsertRowid),
+          changes: Number(res.changes)
+        };
+      },
+      get(...args) {
+        return stmt.get(...args.map(normalize));
+      },
+      all(...args) {
+        return stmt.all(...args.map(normalize));
+      }
+    };
+  },
+  close() {
+    return rawDb.close();
+  }
+};
+
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 

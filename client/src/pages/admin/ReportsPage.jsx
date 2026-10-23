@@ -248,7 +248,7 @@ export default function ReportsPage() {
                 <Server className="w-5 h-5 text-cobalt-600 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-slate-900 block">Database Storage</span>
-                  <span className="text-slate-500 block mt-0.5">Zero-setup SQLite (better-sqlite3)</span>
+                  <span className="text-slate-500 block mt-0.5">Zero-setup SQLite (node:sqlite)</span>
                   <span className="text-slate-500 block">Encryption: bcrypt + JWT</span>
                 </div>
               </div>
